@@ -1,5 +1,5 @@
 import express from "express";
-import { userPageController } from "../controller/userPageController";
+import { userPageController } from "../controller/homeController";
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ const initWebRoutes = (app) => {
     return res.render("home.ejs");
   });
 
-  router.get("/user", userPageController);
+  router.get("/user-table", userPageController);
 
   return app.use("/", router);
 };
