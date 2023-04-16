@@ -15,74 +15,85 @@
 
   <body>
     <div class="container mt-3">
-      <div>
-        <form method="POST" action="/user/create-user">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input
-              type="username"
-              name="username"
-              class="form-control"
-              id="username"
-              aria-describedby="emailHelp"
-              placeholder="Enter username"
-            />
-          </div>
-          <div class="form-group">
-            <label for="email">Email address</label>
-            <input
-              type="email"
-              name="email"
-              class="form-control"
-              id="email"
-              aria-describedby="emailHelp"
-              placeholder="Enter email"
-            />
-            <small id="emailHelp" class="form-text text-muted"
-              >We'll never share your email with anyone else.</small
-            >
-          </div>
-          <div class="form-group">
-            <label for="email">Phone</label>
-            <input
-              type="phone"
-              name="phone"
-              class="form-control"
-              id="email"
-              aria-describedby="emailHelp"
-              placeholder="Enter Phone"
-            />
-            <small id="emailHelp" class="form-text text-muted"
-              >We'll never share your phone with anyone else.</small
-            >
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              class="form-control"
-              id="password"
-              placeholder="Password"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-      <h1>User table</h1>
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th scope="col">stt</th>
-            <th scope="col">Email</th>
-            <th scope="col">Username</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Sex</th>
-            <th scope="col">groupId</th>
-          </tr>
-        </thead>
-        <tbody>
-          <form>
+      <div class="row">
+        <div class="col-6">
+          <form
+            class="row d-grid gap-3"
+            method="POST"
+            action="/user/create-user"
+          >
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                required
+                type="username"
+                name="username"
+                class="form-control"
+                id="username"
+                aria-describedby="emailHelp"
+                placeholder="Enter username"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input
+                required
+                type="email"
+                name="email"
+                class="form-control"
+                id="email"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+              />
+              <small id="emailHelp" class="form-text text-muted"
+                >We'll never share your email with anyone else.</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="email">Phone</label>
+              <input
+                required
+                type="phone"
+                name="phone"
+                class="form-control"
+                id="email"
+                aria-describedby="emailHelp"
+                placeholder="Enter Phone"
+              />
+              <small id="emailHelp" class="form-text text-muted"
+                >We'll never share your phone with anyone else.</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                required
+                type="password"
+                name="password"
+                class="form-control"
+                id="password"
+                placeholder="Password"
+              />
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <h1>User table</h1>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">stt</th>
+              <th scope="col">Email</th>
+              <th scope="col">Username</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Sex</th>
+              <th scope="col">groupId</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
             <% userList.forEach(function(item,index){ %>
             <tr>
               <th scope="row"><%= index + 1 %></th>
@@ -91,11 +102,27 @@
               <td><%= item.phone %></td>
               <td><%= item.sex %></td>
               <td><%= item.groupId %></td>
+              <td>
+                <a
+                  class="d-inline"
+                  href="/user/edit-user/<%=item.id %>"
+                  method="GET"
+                >
+                  <button type="submit" class="btn btn-warning">Edit</button>
+                </a>
+                <form
+                  class="d-inline"
+                  action="/user/delete-user/<%=item.id %>"
+                  method="POST"
+                >
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </td>
             </tr>
             <% }) %>
-          </form>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   </body>
 </html>

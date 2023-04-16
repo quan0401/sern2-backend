@@ -1,6 +1,11 @@
 import express from "express";
 import { userPageController } from "../controller/homeController";
-import { createUserController } from "../controller/UserController";
+import {
+  createUserController,
+  deleteUserController,
+  editUserController,
+  editUserPage,
+} from "../controller/UserController";
 
 const router = express.Router();
 
@@ -11,7 +16,13 @@ const initWebRoutes = (app) => {
 
   router.get("/user-table", userPageController);
 
-  router.post("/user/create-user", createUserController);
+  router.get("/user/edit-user/:id", editUserPage);
+
+  router.get("/user/edit-user", editUserPage);
+
+  router.post("/user/delete-user/:id", deleteUserController);
+
+  router.post("/user/update-user", editUserController);
 
   return app.use("/", router);
 };
