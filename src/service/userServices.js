@@ -16,7 +16,7 @@ const getAllUser = async () => {
     if (result) {
       return result;
     } else {
-      console.log("Not found user");
+      console.log("No users found");
       return null;
     }
   } catch (error) {

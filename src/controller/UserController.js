@@ -1,6 +1,11 @@
 import db from "../models";
 import { findUserWithId, checkUserExistence } from "../service/generalServices";
-import { createUser, deleteUser, editUser } from "../service/userServices";
+import {
+  createUser,
+  deleteUser,
+  editUser,
+  getAllUser,
+} from "../service/userServices";
 
 const userPageController = (req, res) => {
   return res.render("user.ejs");
@@ -82,10 +87,22 @@ const editUserController = async (req, res) => {
   }
 };
 
+const getAllUserController = async (req, res) => {
+  try {
+    const result = await getAllUser();
+    if (result) {
+      return res.status(200).json(result);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   userPageController,
   createUserController,
   deleteUserController,
   editUserPage,
   editUserController,
+  getAllUserController,
 };

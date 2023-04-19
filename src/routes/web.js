@@ -24,6 +24,8 @@ const initWebRoutes = (app) => {
 
   router.post("/user/update-user", editUserController);
 
+  router.post("/user/create-user", createUserController);
+
   return app.use("/", router);
 };
 export default initWebRoutes;
