@@ -31,6 +31,7 @@ const getAllUser = async () => {
 
 const createUser = async (data) => {
   try {
+    console.log(data);
     const { email, phone, password } = data;
     const check = await checkUserExistence(email, phone);
     if (!check) {

@@ -6,8 +6,6 @@ const getUserPagination = async (offset, limit) => {
       limit,
       include: { model: db.Group, attributes: ["name", "description"] },
     });
-    console.log("Checking offset: ", offset);
-    console.log("Checking limit: ", limit);
 
     if (result) {
       return {
@@ -25,4 +23,32 @@ const getUserPagination = async (offset, limit) => {
     };
   }
 };
-export { getUserPagination };
+
+const getAllGroup = async () => {
+  try {
+    const result = await db.Group.findAll({
+      attributes: ["name", "description"],
+    });
+    if (result) {
+      return {
+        EM: "GET GROUPS SUCCEEEDED",
+        EC: 0,
+        DT: result,
+      };
+    } else {
+      return {
+        EM: "getAllGroup error",
+        EC: 1,
+        DT: "",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      EM: "ERROR FROM getAllGroup server",
+      EC: -1,
+      DT: "",
+    };
+  }
+};
+export { getUserPagination, getAllGroup };
