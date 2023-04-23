@@ -2,6 +2,7 @@ import {
   createUserValidation,
   getAllGroup,
   getUserPagination,
+  loginService,
 } from "../service/apiServices";
 import { createUser } from "../service/userServices";
 
@@ -69,9 +70,20 @@ const createUserValidationController = async (req, res) => {
   }
 };
 
+const loginController = async (req, res) => {
+  try {
+    const data = req.body;
+    const result = await loginService(data);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   usersPaginationController,
   getAllUserGroupController,
   createUserController,
   createUserValidationController,
+  loginController,
 };

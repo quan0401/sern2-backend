@@ -4,6 +4,7 @@ import {
   usersPaginationController,
   createUserController,
   createUserValidationController,
+  loginController,
 } from "../controller/apiController";
 import { getAllUserController } from "../controller/UserController";
 
@@ -19,6 +20,8 @@ const initApiRoutes = (app) => {
   router.post("/user/create-user", createUserController);
 
   router.post("/user/create-user-validation", createUserValidationController);
+
+  router.post("/login", loginController);
 
   return app.use("/api/", router);
 };

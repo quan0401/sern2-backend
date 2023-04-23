@@ -14,18 +14,6 @@ const checkUserExistence = async (email, phone) => {
   }
 };
 
-const checkEmailExistence = async (email) => {
-  try {
-    return await db.User.findOne({
-      where: {
-        email,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const checkUserData = async (fieldName, data) => {
   try {
     return await db.User.findOne({
@@ -98,11 +86,15 @@ const checkPasswordStrength = (password) => {
   }
 };
 
+const checkPassWord = (password, hashPassword) => {
+  return bcrypt.compareSync(password, hashPassword);
+};
+
 export {
   checkUserExistence,
   hashPassword,
   findUserWithId,
-  checkEmailExistence,
   checkUserData,
   checkPasswordStrength,
+  checkPassWord,
 };

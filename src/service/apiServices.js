@@ -1,6 +1,7 @@
+import { Op } from "sequelize";
 import db from "../models";
 import {
-  checkEmailExistence,
+  checkPassWord,
   checkPasswordStrength,
   checkUserData,
 } from "./generalServices";
@@ -119,4 +120,53 @@ const createUserValidation = async (fieldName, data) => {
     console.log(error);
   }
 };
-export { getUserPagination, getAllGroup, createUserValidation };
+
+const loginService = async (userData) => {
+  try {
+    const { email, password } = userData;
+
+    const result = await db.User.findOne({
+      where: { [Op.or]: [{ email }, { phone: email }] },
+      attributes: [
+        "id",
+        "email",
+        "username",
+        "password",
+        "groupId",
+        "sex",
+        "address",
+      ],
+      raw: true,
+      include: [{ model: db.Group, attributes: ["id", "name", "description"] }],
+      nest: true,
+    });
+    if (result) {
+      const { password: hassPassword } = result;
+      const rightPassword = checkPassWord(password, hassPassword);
+
+      if (rightPassword) {
+        delete result.password;
+        return {
+          EM: "Found user",
+          EC: 0,
+          DT: result,
+        };
+      } else {
+        return {
+          EM: "Wrong email/phone or password",
+          EC: 1,
+          DT: "",
+        };
+      }
+    } else {
+      return {
+        EM: "User not found",
+        EC: 1,
+        DT: "",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export { getUserPagination, getAllGroup, createUserValidation, loginService };
