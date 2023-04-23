@@ -20,6 +20,7 @@
     "ejs": "^3.1.6",
     "exact": "^0.8.0",
     "express": "^4.17.2",
+    "jsonwebtoken": "^9.0.0",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
     "sequelize": "^6.6.2"

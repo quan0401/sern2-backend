@@ -1,4 +1,8 @@
-import { getAllGroup, getUserPagination } from "../service/apiServices";
+import {
+  createUserValidation,
+  getAllGroup,
+  getUserPagination,
+} from "../service/apiServices";
 import { createUser } from "../service/userServices";
 
 const usersPaginationController = async (req, res) => {
@@ -19,6 +23,7 @@ const usersPaginationController = async (req, res) => {
     });
   }
 };
+
 const getAllUserGroupController = async (req, res) => {
   try {
     const result = await getAllGroup();
@@ -50,8 +55,23 @@ const createUserController = async (req, res) => {
   }
 };
 
+const createUserValidationController = async (req, res) => {
+  try {
+    const { fieldName, data } = req.body;
+    const result = await createUserValidation(fieldName, data);
+    if (result.EC === 0) {
+      return res.status(200).json(result);
+    } else {
+      return res.status(400).json(result);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   usersPaginationController,
   getAllUserGroupController,
   createUserController,
+  createUserValidationController,
 };

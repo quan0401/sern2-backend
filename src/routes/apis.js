@@ -3,6 +3,7 @@ import {
   getAllUserGroupController,
   usersPaginationController,
   createUserController,
+  createUserValidationController,
 } from "../controller/apiController";
 import { getAllUserController } from "../controller/UserController";
 
@@ -16,6 +17,8 @@ const initApiRoutes = (app) => {
   router.get("/user/group", getAllUserGroupController);
 
   router.post("/user/create-user", createUserController);
+
+  router.post("/user/create-user-validation", createUserValidationController);
 
   return app.use("/api/", router);
 };
